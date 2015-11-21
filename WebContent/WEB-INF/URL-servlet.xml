@@ -12,4 +12,9 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	<bean id="dataSource" class="org.h2.jdbcx.JdbcDataSource">
+		<property name="url" value="jdbc:h2:~/shorturl" />
+		<property name="user" value="sa" />
+		<property name="password" value="" />
+	</bean>
 </beans>
