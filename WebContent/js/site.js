@@ -2,7 +2,7 @@ function inscription() {
 	if ($(".emailIns").val() !== "" && $(".mdpIns").val() !== ""&& $(".cmdpIns").val() !== "") {
 		if($(".mdpIns").val() === $(".cmdpIns").val()){
 			if(isAdressMail($(".emailIns").val())){
-				if($(".mdpIns").val().length >= 6 && (".mdpIns").val().length <= 254){
+				if($(".mdpIns").val().length >= 6 && $(".mdpIns").val().length <= 254){
 					$.ajax({
 						type : "post",
 						url : "/shortUrl/pages/inscription",
