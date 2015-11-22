@@ -11,7 +11,7 @@
 		</h3>
 		<div>
 		<span class="errorInscription"></span>
-		<form:form modelAttribute="user" method="post" name="inscription" class="inscription" onSubmit="false">
+		<form:form modelAttribute="user" method="post" name="inscription" class="inscription">
 		  Email : <form:input path="email" class="emailIns"/>
 		  Mot de passe : <form:password path="mdp" class="mdpIns"/>
 		  Confirmation mot de passe : <form:password path="cmdp" class="cmdpIns"/>
@@ -23,7 +23,7 @@
 		</h3>
 		<div>
 		<span class="errorConnexion"></span>
-		<form:form modelAttribute="user" method="post" name="connexion" class="connexion" onSubmit="false">
+		<form:form modelAttribute="user" method="post" name="connexion" class="connexion">
 		  Email : <form:input path="email" class="emailCo"/>
 		  Mot de passe : <form:password path="mdp" class="mdpCo"/>
 		  <input type="submit" class="connexion" value="connexion"/>

@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-aze
 <a href="deconnexion">Se deconnecter</a>
 </body>
 </html>
