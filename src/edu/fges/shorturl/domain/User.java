@@ -15,8 +15,8 @@ public class User implements Serializable {
 	private String email;
 	@NotNull
 	@NotEmpty
-	private String mdp;
-	private String cmdp;
+	private String pwd;
+	private String cpwd;
 	private String token;
 	private String ip;
 
@@ -24,11 +24,11 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(int id, String email, String mdp, String token, String ip) {
+	public User(int id, String email, String pwd, String token, String ip) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.mdp = mdp;
+		this.pwd = pwd;
 		this.token = token;
 		this.ip = ip;
 	}
@@ -49,12 +49,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getMdp() {
-		return mdp;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
 	public String getToken() {
@@ -73,12 +73,12 @@ public class User implements Serializable {
 		this.ip = ip;
 	}
 
-	public String getCmdp() {
-		return cmdp;
+	public String getCpwd() {
+		return cpwd;
 	}
 
-	public void setCmdp(String cmdp) {
-		this.cmdp = cmdp;
+	public void setCpwd(String cpwd) {
+		this.cpwd = cpwd;
 	}
 
 }

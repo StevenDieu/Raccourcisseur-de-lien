@@ -1,13 +1,13 @@
 function inscription() {
-	if ($(".emailIns").val() !== "" && $(".mdpIns").val() !== ""&& $(".cmdpIns").val() !== "") {
-		if($(".mdpIns").val() === $(".cmdpIns").val()){
+	if ($(".emailIns").val() !== "" && $(".pwdIns").val() !== ""&& $(".cpwdIns").val() !== "") {
+		if($(".pwdIns").val() === $(".cpwdIns").val()){
 			if(isAdressMail($(".emailIns").val())){
-				if($(".mdpIns").val().length >= 6 && $(".mdpIns").val().length <= 254){
+				if($(".pwdIns").val().length >= 6 && $(".pwdIns").val().length <= 254){
 					$.ajax({
 						type : "post",
 						url : "/shortUrl/pages/inscription",
-						data : "email=" + $(".emailIns").val() + "&mdp=" + $(".mdpIns").val()
-								+ "&cmdp=" + $(".cmdpIns").val(),
+						data : "email=" + $(".emailIns").val() + "&pwd=" + $(".pwdIns").val()
+								+ "&cpwd=" + $(".cpwdIns").val(),
 						success : function(t) {
 							t = JSON.parse(t);
 							if (t.objetResult == "redirect") {
@@ -32,11 +32,11 @@ function inscription() {
 }
 
 function connexion() {
-	if ($(".emailCo").val() !== "" && $(".mdpCo").val() !== "") {
+	if ($(".emailCo").val() !== "" && $(".pwdCo").val() !== "") {
 			$.ajax({
 				type : "post",
 				url : "/shortUrl/pages/connexion",
-				data : "email=" + $(".emailCo").val() + "&mdp=" + $(".mdpCo").val(),
+				data : "email=" + $(".emailCo").val() + "&pwd=" + $(".pwdCo").val(),
 				success : function(t) {
 					t = JSON.parse(t);
 					if (t.objetResult == "redirect") {
@@ -61,6 +61,24 @@ function isAdressMail(email){
 	}
 }
 
+function addUrl(){
+	if($("#url_base").val() != ""){
+		$.ajax({
+			type : "post",
+			url : "/shortUrl/pages/ajouterUrl",
+			data : "url_base=" + $("#url_base").val(),
+			success : function(t) {
+				t = JSON.parse(t);
+				if (t.objetResult == "redirect") {
+					window.location.href = t.redirect;
+				} else if (t.objetResult == "message") {
+					$(".errorUrl").html(t.message);
+				}
+			}
+		});
+	}
+}
+
 $(document).ready(function() {
     $('.inscription').on('submit', function(e) {
     	e.preventDefault();
@@ -69,5 +87,9 @@ $(document).ready(function() {
     $('.connexion').on('submit', function(e) {
     	e.preventDefault();
 		connexion();
+	});
+    $('.addUrl').on('submit', function(e) {
+    	e.preventDefault();
+		addUrl();
 	});
 });

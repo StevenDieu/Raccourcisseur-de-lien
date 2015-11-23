@@ -15,14 +15,22 @@ import edu.fges.shorturl.domain.User;
 import edu.fges.shorturl.service.UserServiceInpl;
 
 @Controller
-public class CtrlUtilisateur {
+public class CtrlUser {
 
 	@Autowired
-	private UserServiceInpl UserServiceInpl;
+	private UserServiceInpl userServiceInpl;
+	
+	@RequestMapping(value = "/index")
+	public String index(@ModelAttribute User user,HttpServletRequest request) {
+		if (request.getSession().getAttribute("boolConnexion") != null) {
+			return "redirect:/pages/accueil";
+		}
+		return "index";
+	}
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
 	@ResponseBody
-	public String inscription(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {
+	public String signUp(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") != null) {
 			return "redirect:/pages/accueil";
 		}
@@ -30,23 +38,22 @@ public class CtrlUtilisateur {
 		if (results.hasErrors()) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
 		}
-		if (!user.getCmdp().equals(user.getMdp())) {
+		if (!user.getCpwd().equals(user.getPwd())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Les mots de passe ne sont pas identiques.\",\"codeError\": 1}";
 		}
-		if(!UserServiceInpl.isEmailAdress(user.getEmail())){
+		if (!userServiceInpl.isEmailAdress(user.getEmail())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'est pas valide.\",\"codeError\": 2}";
 		}
-		if (UserServiceInpl.checkUserEmail(user.getEmail())) {
+		if (userServiceInpl.checkUserEmail(user.getEmail())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email existe déja.\",\"codeError\": 2}";
 		}
-		if(user.getMdp().length() <= 6 && user.getMdp().length() >= 254){
+		if (user.getPwd().length() <= 6 && user.getPwd().length() >= 254) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe doit être compris entre 6 et 254 caratères.\",\"codeError\": 2}";
 		}
 
-		
-		user.setIp(UserServiceInpl.getIpAdresse(request));
-		UserServiceInpl.createUser(user);
-		
+		user.setIp(userServiceInpl.getIpAdresse(request));
+		userServiceInpl.createUser(user);
+
 		if (user.getId() > 0) {
 			setSessionUser(user, request);
 
@@ -58,29 +65,29 @@ public class CtrlUtilisateur {
 
 	@RequestMapping(value = "/connexion", method = RequestMethod.POST)
 	@ResponseBody
-	public String connexion(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {
+	public String signIn(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") != null) {
 			return "redirect:/pages/accueil";
 		}
-		
+
 		if (results.hasErrors()) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
 		}
-		if (!UserServiceInpl.checkUserEmail(user.getEmail())) {
+		if (!userServiceInpl.checkUserEmail(user.getEmail())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'existe pas.\",\"codeError\": 2}";
 		}
-		
-		if (UserServiceInpl.checkUserEmailMdp(user)) {
+
+		if (userServiceInpl.checkUserEmailPwd(user)) {
 			setSessionUser(user, request);
-			
+
 			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/shortUrl/pages/accueil\" }";
 		}
 		return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe est incorrect.\",\"codeError\": 2}";
 
 	}
-	
+
 	@RequestMapping(value = "/deconnexion")
-	public String deconnexion(HttpServletRequest request) {
+	public String signOut(HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") != null) {
 			request.getSession().setAttribute("boolConnexion", null);
 			request.getSession().setAttribute("idUser", null);
@@ -90,14 +97,12 @@ public class CtrlUtilisateur {
 		}
 		return "redirect:/pages/index";
 	}
-	
-	
+
 	private void setSessionUser(User user, HttpServletRequest request) {
 		request.getSession().setAttribute("boolConnexion", true);
 		request.getSession().setAttribute("idUser", user.getId());
 		request.getSession().setAttribute("emailUser", user.getEmail());
 		request.getSession().setAttribute("user", user);
 	}
-
 
 }

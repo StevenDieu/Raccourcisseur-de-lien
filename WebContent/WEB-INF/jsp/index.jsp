@@ -1,6 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
 <jsp:include page="templates/head.jsp"/>
 	<div style="text-align: center">
 		<h2>
@@ -13,8 +12,8 @@
 		<span class="errorInscription"></span>
 		<form:form modelAttribute="user" method="post" name="inscription" class="inscription">
 		  Email : <form:input path="email" class="emailIns"/>
-		  Mot de passe : <form:password path="mdp" class="mdpIns"/>
-		  Confirmation mot de passe : <form:password path="cmdp" class="cmdpIns"/>
+		  Mot de passe : <form:password path="pwd" class="pwdIns"/>
+		  Confirmation mot de passe : <form:password path="cpwd" class="cpwdIns"/>
 		  <input type="submit" value="Inscription"/>
 		</form:form>
 		</div>
@@ -25,7 +24,7 @@
 		<span class="errorConnexion"></span>
 		<form:form modelAttribute="user" method="post" name="connexion" class="connexion">
 		  Email : <form:input path="email" class="emailCo"/>
-		  Mot de passe : <form:password path="mdp" class="mdpCo"/>
+		  Mot de passe : <form:password path="pwd" class="pwdCo"/>
 		  <input type="submit" class="connexion" value="connexion"/>
 		</form:form>
 		</div>

@@ -6,16 +6,14 @@ import edu.fges.shorturl.domain.User;
 
 @Service
 public interface UserService {
-	public User createUser(User user);
+	public void createUser(User user);
 	
 	public boolean checkUserEmail(String email);
 
-	public boolean checkUserEmailMdp(User user);
+	public boolean checkUserEmailPwd(User user);
 	
 	public User getUser(int id);
 	
 	public void removeUser(int id);
-
-	public void update(User model);
 
 }

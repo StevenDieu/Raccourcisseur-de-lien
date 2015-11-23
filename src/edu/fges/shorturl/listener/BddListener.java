@@ -23,11 +23,29 @@ public class BddListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		createTableUser();
+		createTableUrl();
+	}
 
+	private void createTableUser() {
 		try {
 			Bdd.connection();
 			PreparedStatement preparedStatementCreateTableUser = Bdd.getConnexion().prepareStatement(
-					"CREATE TABLE IF NOT EXISTS user(ID Identity PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE,mdp VARCHAR(255) NOT NULL ,token VARCHAR(255) DEFAULT '',ip VARCHAR(25))");
+					"CREATE TABLE IF NOT EXISTS user(ID Identity PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE,pwd VARCHAR(255) NOT NULL ,token VARCHAR(255) DEFAULT '',ip VARCHAR(25))");
+			preparedStatementCreateTableUser.execute();
+		} catch (SQLException e) {
+			logger.error("[BddListener].[contextInitialized] SQLException - Erreure dans create de la table User");
+			e.printStackTrace();
+		} finally {
+			Bdd.disconnection();
+		}
+	}
+
+	private void createTableUrl() {
+		try {
+			Bdd.connection();
+			PreparedStatement preparedStatementCreateTableUser = Bdd.getConnexion().prepareStatement(
+					"CREATE TABLE IF NOT EXISTS url(ID Identity PRIMARY KEY, url_base VARCHAR(2300) NOT NULL,url_short VARCHAR(4) NOT NULL UNIQUE)");
 			preparedStatementCreateTableUser.execute();
 		} catch (SQLException e) {
 			logger.error("[BddListener].[contextInitialized] SQLException - Erreure dans create de la table User");

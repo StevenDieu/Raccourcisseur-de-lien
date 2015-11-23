@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
 import edu.fges.shorturl.domain.User;
 
 @Repository
-public class UserRepositoryServiceInpl implements UserRepository {
+public class UserRepositoryInpl implements UserRepository {
 
-	private static final Logger logger = LogManager.getLogger(UserRepositoryServiceInpl.class);
+	private static final Logger logger = LogManager.getLogger(UserRepositoryInpl.class);
 
 	@Autowired
 	private DataSource dataSource;
@@ -29,9 +29,9 @@ public class UserRepositoryServiceInpl implements UserRepository {
 		try {
 			if (user != null) {
 				preparedStatementInsert = dataSource.getConnection()
-						.prepareStatement("INSERT INTO user (email, mdp,ip) VALUES(?,?,?)");
+						.prepareStatement("INSERT INTO user (email, pwd, ip) VALUES(?,?,?)");
 				preparedStatementInsert.setString(1, user.getEmail());
-				preparedStatementInsert.setString(2, sha256(user.getMdp()));
+				preparedStatementInsert.setString(2, sha256(user.getPwd()));
 				preparedStatementInsert.setString(3, user.getIp());
 				preparedStatementInsert.executeUpdate();
 				ResultSet rs = preparedStatementInsert.getGeneratedKeys();
@@ -52,7 +52,7 @@ public class UserRepositoryServiceInpl implements UserRepository {
 	}
 
 	@Override
-	public void getUser(String email, String mdp) {
+	public void getUser(String email, String pwd) {
 
 	}
 
@@ -83,14 +83,14 @@ public class UserRepositoryServiceInpl implements UserRepository {
 	}
 
 	@Override
-	public boolean checkUserEmailMdp(User user) {
+	public boolean checkUserEmailPwd(User user) {
 		PreparedStatement preparedStatement = null;
 
 		try {
 			preparedStatement = dataSource.getConnection()
-					.prepareStatement("SELECT id,ip FROM user WHERE email = ? AND mdp = ? LIMIT 1");
+					.prepareStatement("SELECT id,ip FROM user WHERE email = ? AND pwd = ? LIMIT 1");
 			preparedStatement.setString(1, user.getEmail());
-			preparedStatement.setString(2, sha256(user.getMdp()));
+			preparedStatement.setString(2, sha256(user.getPwd()));
 			ResultSet result = preparedStatement.executeQuery();
 			boolean flag = false;
 			while (result.next()) {
