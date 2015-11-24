@@ -20,5 +20,6 @@
 	<servlet-mapping>
 		<servlet-name>URL</servlet-name>
 		<url-pattern>/pages/*</url-pattern>
+		<url-pattern>/r/*</url-pattern>
 	</servlet-mapping>
 </web-app>

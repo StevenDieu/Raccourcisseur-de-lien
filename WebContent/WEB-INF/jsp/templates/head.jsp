@@ -9,8 +9,8 @@
     <meta name="googlebot" content="index, follow" />
     <meta name="google" content="notranslate" />
     <meta name="viewport" content="width=device-width"/>
-	<link type="text/css" rel="stylesheet" href="/shortUrl/css/site.css">
-	<script src="/shortUrl/js/jquery.js"></script>
-	<script src="/shortUrl/js/site.js"></script>
+	<link type="text/css" rel="stylesheet" href="/css/site.css">
+	<script src="/js/jquery.js"></script>
+	<script src="/js/site.js"></script>
 </head>
 <body>

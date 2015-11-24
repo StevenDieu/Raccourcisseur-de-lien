@@ -38,7 +38,7 @@ public class CtrlUrl {
 	@ResponseBody
 	public String addUrl(@ModelAttribute Url url,HttpServletRequest request, BindingResult results) {
 		if (request.getSession().getAttribute("boolConnexion") == null) {
-			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/shortUrl/pages/index\" }";
+			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/pages/index\" }";
 		}
 		if (results.hasErrors()) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
