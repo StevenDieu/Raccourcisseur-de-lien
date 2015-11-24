@@ -1,6 +1,9 @@
 package edu.fges.shorturl.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.fges.shorturl.domain.Url;
 import edu.fges.shorturl.service.UrlServiceInpl;
@@ -21,11 +25,14 @@ public class CtrlUrl {
 	private UrlServiceInpl urlServiceInpl;
 
 	@RequestMapping(value = "/accueil")
-	public String home(@ModelAttribute Url url,HttpServletRequest request) {
+	public ModelAndView home(@ModelAttribute Url url,HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") == null) {
-			return "redirect:/pages/index";
+			return new ModelAndView("redirect:/pages/index");
 		}
-		return "accueil";	}
+	    Map<String, Object> model = new HashMap<String, Object>();
+	    model.put("urls", urlServiceInpl.listUrlByUser((int) request.getSession().getAttribute("idUser")));
+		return new ModelAndView("accueil",model);
+	}
 	
 	@RequestMapping(value = "/ajouterUrl", method = RequestMethod.POST)
 	@ResponseBody
@@ -36,18 +43,20 @@ public class CtrlUrl {
 		if (results.hasErrors()) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
 		}
-		if(!urlServiceInpl.urlIsValid(url.getUrl_base())){
+		if(!urlServiceInpl.urlIsValid(url.getUrlBase())){
 			return "{\"objetResult\": \"message\",\"message\":  \"L'url n'est pas valide.\",\"codeError\": 0}";
 		}
 		
 		urlServiceInpl.createUniKey(url);
+		url.setUrlShort("http://" + request.getHeader("host") + "/r/" + url.getUniKey());
+		url.setIdUser((int) request.getSession().getAttribute("idUser"));
 		urlServiceInpl.addUrl(url);
+		
 		if(url.getId() > 0){
 			return "{\"objetResult\": \"message\",\"message\":  \"Ajout de l'url.\",\"codeSuccess\": 1}";
 		}
 		
 		return "{\"objetResult\": \"message\",\"message\":  \"Une erreure c'est produite, vueillez recommencer ou contater un administrateur.\",\"codeError\": 3}";
 	}
-	
 
 }

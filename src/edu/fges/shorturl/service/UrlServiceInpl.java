@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class UrlServiceInpl implements UrlService {
 	@Autowired
 	private UrlRepositoryInpl URSI;
 
-	public boolean urlIsValid(String url_base) {
+	public boolean urlIsValid(String urlBase) {
 		try {
-			URL url = new URL(url_base);
+			URL url = new URL(urlBase);
 			URLConnection conn = url.openConnection();
 			conn.connect();
 		} catch (MalformedURLException e) {
@@ -32,19 +33,21 @@ public class UrlServiceInpl implements UrlService {
 		return true;
 	}
 
-	public String createUniKey(Url url) {
+	public void createUniKey(Url url) {
 		boolean flagUniKey = true;
-		String uniKey = "";
 		while(flagUniKey){
-			url.setUrl_short(UUID.randomUUID().toString().substring(0, 4));
-			flagUniKey = URSI.checkUniCode(url.getUrl_short());	
+			url.setUniKey(UUID.randomUUID().toString().substring(0, 4));
+			flagUniKey = URSI.checkUniCode(url.getUniKey());	
 		}
-		return uniKey;
 	}
 
 	@Override
 	public void addUrl(Url url) {
 		URSI.addUrl(url);
+	}
+	
+	public List<Url> listUrlByUser(int idUser){
+		return URSI.listUrlByUser(idUser);
 	}
 
 }

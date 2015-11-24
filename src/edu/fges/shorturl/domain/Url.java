@@ -12,18 +12,22 @@ public class Url implements Serializable {
 	private int id;
 	@NotNull
 	@NotEmpty
-	private String url_base;
-	private String url_short;
+	private String urlBase;
+	private String urlShort;
+	private String uniKey;
+	private int idUser;
 	
 	public Url() {
 		super();
 	}
 
-	public Url(int id, String url_base, String url_short) {
+	public Url(int id, String urlBase, String urlShort, String uniKey, int idUser) {
 		super();
 		this.id = id;
-		this.url_base = url_base;
-		this.url_short = url_short;
+		this.urlBase = urlBase;
+		this.urlShort = urlShort;
+		this.uniKey = uniKey;
+		this.idUser = idUser;
 	}
 
 	public int getId() {
@@ -34,20 +38,36 @@ public class Url implements Serializable {
 		this.id = id;
 	}
 
-	public String getUrl_base() {
-		return url_base;
+	public String getUrlBase() {
+		return urlBase;
 	}
 
-	public void setUrl_base(String url_base) {
-		this.url_base = url_base;
+	public void setUrlBase(String urlBase) {
+		this.urlBase = urlBase;
 	}
 
-	public String getUrl_short() {
-		return url_short;
+	public String getUrlShort() {
+		return urlShort;
 	}
 
-	public void setUrl_short(String url_short) {
-		this.url_short = url_short;
+	public void setUrlShort(String urlShort) {
+		this.urlShort = urlShort;
+	}
+
+	public String getUniKey() {
+		return uniKey;
+	}
+
+	public void setUniKey(String uniKey) {
+		this.uniKey = uniKey;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 }

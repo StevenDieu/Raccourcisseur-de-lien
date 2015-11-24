@@ -62,11 +62,11 @@ function isAdressMail(email){
 }
 
 function addUrl(){
-	if($("#url_base").val() != ""){
+	if($("#urlBase").val() != ""){
 		$.ajax({
 			type : "post",
 			url : "/shortUrl/pages/ajouterUrl",
-			data : "url_base=" + $("#url_base").val(),
+			data : "urlBase=" + $("#urlBase").val(),
 			success : function(t) {
 				t = JSON.parse(t);
 				if (t.objetResult == "redirect") {
