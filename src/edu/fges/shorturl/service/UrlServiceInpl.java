@@ -19,9 +19,9 @@ public class UrlServiceInpl implements UrlService {
 	@Autowired
 	private UrlRepositoryInpl URSI;
 
-	public boolean urlIsValid(String url_base) {
+	public boolean urlIsValid(String urlBase) {
 		try {
-			URL url = new URL(url_base);
+			URL url = new URL(urlBase);
 			URLConnection conn = url.openConnection();
 			conn.connect();
 		} catch (MalformedURLException e) {
@@ -33,14 +33,12 @@ public class UrlServiceInpl implements UrlService {
 		return true;
 	}
 
-	public String createUniKey(Url url) {
+	public void createUniKey(Url url) {
 		boolean flagUniKey = true;
-		String uniKey = "";
 		while(flagUniKey){
-			url.setUrl_short(UUID.randomUUID().toString().substring(0, 4));
-			flagUniKey = URSI.checkUniCode(url.getUrl_short());	
+			url.setUniKey(UUID.randomUUID().toString().substring(0, 4));
+			flagUniKey = URSI.checkUniCode(url.getUniKey());	
 		}
-		return uniKey;
 	}
 
 	@Override
@@ -48,8 +46,13 @@ public class UrlServiceInpl implements UrlService {
 		URSI.addUrl(url);
 	}
 	
+<<<<<<< HEAD
 	public List<Url> listUrlByUser(){
 		return URSI.listUrlByUser();
+=======
+	public List<Url> listUrlByUser(int idUser){
+		return URSI.listUrlByUser(idUser);
+>>>>>>> origin/master
 	}
 
 }

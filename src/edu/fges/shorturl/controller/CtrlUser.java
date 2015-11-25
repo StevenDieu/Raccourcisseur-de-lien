@@ -20,6 +20,11 @@ public class CtrlUser {
 	@Autowired
 	private UserServiceInpl userServiceInpl;
 	
+	@RequestMapping(value = "/r/*")
+	public String redirection(@ModelAttribute User user,HttpServletRequest request) {
+		return "accueil";
+	}
+	
 	@RequestMapping(value = "/index")
 	public String index(@ModelAttribute User user,HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") != null) {
@@ -57,7 +62,7 @@ public class CtrlUser {
 		if (user.getId() > 0) {
 			setSessionUser(user, request);
 
-			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/shortUrl/pages/accueil\" }";
+			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/pages/accueil\" }";
 		}
 
 		return "{\"objetResult\": \"message\",\"message\":  \"Une erreure c'est produite, vueillez recommencer ou contater un administrateur.\",\"codeError\": 3}";
@@ -80,7 +85,7 @@ public class CtrlUser {
 		if (userServiceInpl.checkUserEmailPwd(user)) {
 			setSessionUser(user, request);
 
-			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/shortUrl/pages/accueil\" }";
+			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/pages/accueil\" }";
 		}
 		return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe est incorrect.\",\"codeError\": 2}";
 

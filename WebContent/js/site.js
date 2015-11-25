@@ -5,7 +5,7 @@ function inscription() {
 				if($(".pwdIns").val().length >= 6 && $(".pwdIns").val().length <= 254){
 					$.ajax({
 						type : "post",
-						url : "/shortUrl/pages/inscription",
+						url : "/pages/inscription",
 						data : "email=" + $(".emailIns").val() + "&pwd=" + $(".pwdIns").val()
 								+ "&cpwd=" + $(".cpwdIns").val(),
 						success : function(t) {
@@ -35,7 +35,7 @@ function connexion() {
 	if ($(".emailCo").val() !== "" && $(".pwdCo").val() !== "") {
 			$.ajax({
 				type : "post",
-				url : "/shortUrl/pages/connexion",
+				url : "/pages/connexion",
 				data : "email=" + $(".emailCo").val() + "&pwd=" + $(".pwdCo").val(),
 				success : function(t) {
 					t = JSON.parse(t);
@@ -62,11 +62,11 @@ function isAdressMail(email){
 }
 
 function addUrl(){
-	if($("#url_base").val() != ""){
+	if($("#urlBase").val() != ""){
 		$.ajax({
 			type : "post",
-			url : "/shortUrl/pages/ajouterUrl",
-			data : "url_base=" + $("#url_base").val(),
+			url : "/pages/ajouterUrl",
+			data : "urlBase=" + $("#urlBase").val(),
 			success : function(t) {
 				t = JSON.parse(t);
 				if (t.objetResult == "redirect") {
