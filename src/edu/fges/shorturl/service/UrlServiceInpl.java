@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,10 @@ public class UrlServiceInpl implements UrlService {
 	@Override
 	public void addUrl(Url url) {
 		URSI.addUrl(url);
+	}
+	
+	public List<Url> listUrlByUser(){
+		return URSI.listUrlByUser();
 	}
 
 }

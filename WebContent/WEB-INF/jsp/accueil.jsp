@@ -12,6 +12,13 @@
 	<span class="errorUrl"></span>
 </form:form>
 
+<c:set var="listeUrl" value="${urls}" />
+<c:forEach var="url" items="${listeUrl}">
+	<tr class="${url.id}">
+		<td><c:out value="${url.url_base}"/></td>
+		<td><c:out value="${url.url_short}"/></td>
+	</tr>
+</c:forEach>
 <a href="deconnexion">Se deconnecter</a>
 
 <jsp:include page="templates/footer.jsp" />

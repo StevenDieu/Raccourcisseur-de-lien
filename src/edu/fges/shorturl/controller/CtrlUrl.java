@@ -1,6 +1,8 @@
 package edu.fges.shorturl.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,11 @@ public class CtrlUrl {
 		}
 		
 		return "{\"objetResult\": \"message\",\"message\":  \"Une erreure c'est produite, vueillez recommencer ou contater un administrateur.\",\"codeError\": 3}";
+	}
+	
+	@ModelAttribute("urls")
+	public List<Url> getUrls() {
+		return urlServiceInpl.listUrlByUser();
 	}
 	
 
