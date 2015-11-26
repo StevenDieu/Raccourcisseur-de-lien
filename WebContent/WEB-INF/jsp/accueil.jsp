@@ -14,22 +14,13 @@
 	<form:input path="urlBase" />
 	<form:button type="submit" name="Raccourcir">Raccourcir</form:button>
 	<br />
-	<span class="errorUrl"></span>
+	<span class="messsageUrlAjax"></span>
 </form:form>
-<<<<<<< HEAD
-
 <c:set var="listeUrl" value="${urls}" />
-<c:forEach var="url" items="${listeUrl}">
-	<tr class="${url.id}">
-		<td><c:out value="${url.url_base}"/></td>
-		<td><c:out value="${url.url_short}"/></td>
-	</tr>
-</c:forEach>
-=======
-<c:set var="listeUrl" value="${urls}" />
-<table border="1px">
+<table border="1px" class="tableUrl">
 	<thead>
 		<tr>
+			<th class="text-left"><input type="checkbox" class="allCheck" value="${url.id}"></th>
 			<th class="text-left">URL longue</th>
 			<th class="text-left">URL courte</th>
 		</tr>
@@ -37,12 +28,13 @@
 	<tbody class="table-hover">
 	<c:forEach var="url" items="${listeUrl}">
 		<tr class="${url.id}">
+			<td><input type="checkbox"  class="checkboxUrl" value="${url.id}"></td>
 			<td><c:out value="${url.urlBase}"/></td>
-			<td><a href="${url.urlShort}" target="_BLANK"><c:out value="${url.urlShort}"/></a></td>
+			<td><a href="${url.urlShort}"><c:out value="${url.urlShort}"/></a></td>
 		</tr>
 	</c:forEach>
 </table>
->>>>>>> origin/master
+<input type="button" class="deleteUrl" value="Supprimer"/><br/><br/>
 <a href="deconnexion">Se deconnecter</a>
 
 <jsp:include page="templates/footer.jsp" />

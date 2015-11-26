@@ -9,9 +9,7 @@ import edu.fges.shorturl.domain.Url;
 @Service
 public interface UrlService {
 	public void addUrl(Url url);
-<<<<<<< HEAD
-	public List<Url> listUrlByUser();
-=======
 	public List<Url> listUrlByUser(int idUser);
->>>>>>> origin/master
+	public String getUrlBase(String uniKey);
+	public void deleteUrl(List<Integer> listUrl, int idUser);
 }

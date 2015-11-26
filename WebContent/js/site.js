@@ -72,12 +72,77 @@ function addUrl(){
 				if (t.objetResult == "redirect") {
 					window.location.href = t.redirect;
 				} else if (t.objetResult == "message") {
-					$(".errorUrl").html(t.message);
+					$(".messsageUrlAjax").html(t.message);
+					if(t.codeError === 0){
+						$(".tableUrl").append('<tr class="'+t.url.id+'"><td><input type="checkbox"  class="checkboxUrl checkboxUrl'+t.url.id+'" value="' + t.url.id + '"></td><td>' + $("#urlBase").val() + '</td><td><a href="'+ t.url.urlShort + '">' + t.url.urlShort + '</td></tr>');
+					    $(".checkboxUrl" + t.url.id).on("click", function(){
+					    	setCheckboxAllIfAllCheboxIsChek();
+					    });
+						$("#urlBase").val("");
+					}
 				}
 			}
 		});
 	}
 }
+
+//checkboxUrl
+
+function deleteUrl(){
+	if($(".checkboxUrl").is(":checked")){
+		var arrayCheckboxChecked = [];
+		$(".checkboxUrl").each(function( index ) {
+			  if($( this ).is(":checked")){
+				  arrayCheckboxChecked.push($( this ).val());
+			  }
+		});
+		$.ajax({
+			type : "post",
+			url : "/pages/supprimerUrl",
+			data : "listUrlDelete=" + arrayCheckboxChecked,
+			success : function(t) {
+				t = JSON.parse(t);
+				if (t.objetResult == "message") {
+					$(".messsageUrlAjax").html(t.message);
+					if(t.codeError === 0){
+						$(".checkboxUrl").each(function( index ) {
+							for(var i = 0; i <= arrayCheckboxChecked.length; i++){
+								if($(this).val() === arrayCheckboxChecked[i]){
+									$(this).parent().parent().remove()
+								}
+							}
+						});
+						setAllCheckAfterAllDelete();
+					}
+				}
+			}
+		});
+	}
+}
+
+function setAllCheckAfterAllDelete(){
+	if($(".checkboxUrl").length == 0){
+		$(".allCheck").prop( "checked", false);
+	}
+}
+
+function allCheck(){
+	$(".checkboxUrl").prop( "checked", $(".allCheck").is(":checked"));
+}
+
+function setCheckboxAllIfAllCheboxIsChek(){
+	var allIsNotChecked = true;
+	$(".checkboxUrl").each(function( index ) {
+		if(!$(this).is(":checked")){
+			$(".allCheck").prop( "checked", false);
+			allIsNotChecked = false;
+		}
+	});
+	if(allIsNotChecked){
+		$(".allCheck").prop( "checked", true);
+	}
+}
+
 
 $(document).ready(function() {
     $('.inscription').on('submit', function(e) {
@@ -92,4 +157,13 @@ $(document).ready(function() {
     	e.preventDefault();
 		addUrl();
 	});
+    $(".deleteUrl").on("click", function(){
+    	deleteUrl();
+    })
+    $(".allCheck").on("click", function(){
+    	allCheck();
+    })
+    $(".checkboxUrl").on("click", function(){
+    	setCheckboxAllIfAllCheboxIsChek();
+    })
 });

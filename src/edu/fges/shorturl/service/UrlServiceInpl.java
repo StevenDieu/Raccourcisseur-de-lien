@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,13 +48,31 @@ public class UrlServiceInpl implements UrlService {
 		URSI.addUrl(url);
 	}
 	
-<<<<<<< HEAD
-	public List<Url> listUrlByUser(){
-		return URSI.listUrlByUser();
-=======
 	public List<Url> listUrlByUser(int idUser){
 		return URSI.listUrlByUser(idUser);
->>>>>>> origin/master
+	}
+
+	@Override
+	public String getUrlBase(String uniKey) {
+		return URSI.getUrlBase(uniKey);
+	}
+
+	@Override
+	public void deleteUrl(List<Integer> listUrl, int idUser) {
+		URSI.deleteUrl(listUrl, idUser);
+	}
+	
+	public List<Integer> convertStringInListInteger(String stringListUrl){
+		List<Integer> listUrl = new ArrayList<Integer>();
+		try{
+			List<String> listStringUrl = Arrays.asList(stringListUrl.split("\\s*,\\s*"));
+			for(String stringUrl : listStringUrl) {
+				listUrl.add(Integer.valueOf(stringUrl));
+			}
+		}catch (Exception e){
+			return null;
+		}
+		return listUrl;
 	}
 
 }

@@ -41,19 +41,19 @@ public class CtrlUser {
 		}
 
 		if (results.hasErrors()) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 1}";
 		}
 		if (!user.getCpwd().equals(user.getPwd())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"Les mots de passe ne sont pas identiques.\",\"codeError\": 1}";
 		}
 		if (!userServiceInpl.isEmailAdress(user.getEmail())) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'est pas valide.\",\"codeError\": 2}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'est pas valide.\",\"codeError\": 1}";
 		}
 		if (userServiceInpl.checkUserEmail(user.getEmail())) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email existe déja.\",\"codeError\": 2}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email existe déja.\",\"codeError\": 1}";
 		}
 		if (user.getPwd().length() <= 6 && user.getPwd().length() >= 254) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe doit être compris entre 6 et 254 caratères.\",\"codeError\": 2}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe doit être compris entre 6 et 254 caratères.\",\"codeError\": 1}";
 		}
 
 		user.setIp(userServiceInpl.getIpAdresse(request));
@@ -76,10 +76,10 @@ public class CtrlUser {
 		}
 
 		if (results.hasErrors()) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 0}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Aucun champ ne doit être vide.\",\"codeError\": 1}";
 		}
 		if (!userServiceInpl.checkUserEmail(user.getEmail())) {
-			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'existe pas.\",\"codeError\": 2}";
+			return "{\"objetResult\": \"message\",\"message\":  \"Cette adresse email n'existe pas.\",\"codeError\": 1}";
 		}
 
 		if (userServiceInpl.checkUserEmailPwd(user)) {
@@ -87,7 +87,7 @@ public class CtrlUser {
 
 			return "{\"objetResult\": \"redirect\",\"redirect\":  \"/pages/accueil\" }";
 		}
-		return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe est incorrect.\",\"codeError\": 2}";
+		return "{\"objetResult\": \"message\",\"message\":  \"Le mot de passe est incorrect.\",\"codeError\": 1}";
 
 	}
 

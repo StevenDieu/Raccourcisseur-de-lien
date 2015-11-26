@@ -105,6 +105,29 @@ public class UrlRepositoryInpl implements UrlRepository {
 
 		return listUrl;
 	}
+	
+	public String getUrlBase(String uniKey) {
+		PreparedStatement preparedStatementSelect = null;
+		try {
+			preparedStatementSelect = dataSource.getConnection().prepareStatement("SELECT * FROM url WHERE uni_key = ?");
+			preparedStatementSelect.setString(1, uniKey);
+			ResultSet result = preparedStatementSelect.executeQuery();
+			while (result.next()) {
+				return result.getString("url_base");
+			}
+		} catch (SQLException e) {
+			logger.error("[UrlRepositoryInpl].[listUrlByUser] SQLException - Erreur dans la requete");
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatementSelect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
 
 	private Url createUrlResult(ResultSet result) throws SQLException {
 		int id = result.getInt("id");
@@ -116,35 +139,28 @@ public class UrlRepositoryInpl implements UrlRepository {
 	}
 
 	@Override
-	public List<Url> listUrlByUser() {
-		
-		List<Url> listUrl = new LinkedList<Url>();
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = dataSource.getConnection().prepareStatement("SELECT * FROM url");
-			ResultSet result = preparedStatement.executeQuery();
-			while (result.next()) {
-				listUrl.add(createUrlResult(result));
-			}
-		} catch (SQLException e) {
-			logger.error("[UrlRepositoryInpl].[listUrlByUser] SQLException - Erreur dans la requete");
-			e.printStackTrace();
-		} finally {
+	public void deleteUrl(List<Integer> listUrl, int idUser) {
+		for(int idUrl : listUrl){
+			PreparedStatement preparedStatementDelete = null;
 			try {
-				preparedStatement.close();
+					preparedStatementDelete = dataSource.getConnection().prepareStatement("DELETE FROM url WHERE id = ? and id_user = ?");
+					preparedStatementDelete.setInt(1, idUrl);
+					preparedStatementDelete.setInt(2, idUser);
+					preparedStatementDelete.execute();
 			} catch (SQLException e) {
+				logger.error("[UrlRepositoryInpl].[deleteUrl] SQLException - Erreur dans la requete");
 				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatementDelete.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
-		return listUrl;
 	}
-	
-	private Url createUrlResult(ResultSet result) throws SQLException {
-		int id = result.getInt("id");
-		String url_base = result.getString("url_base");
-		String url_short = result.getString("url_short");
-		return new Url(id, url_base, url_short);
-	}
+
+
 
 }
