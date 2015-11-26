@@ -161,6 +161,33 @@ public class UrlRepositoryInpl implements UrlRepository {
 
 	}
 
+	@Override
+	public boolean checkUrlBase(String urlBase,int idUser) {
+		PreparedStatement preparedStatementSelect = null;
+
+		try {
+			preparedStatementSelect = dataSource.getConnection()
+					.prepareStatement("SELECT id FROM url WHERE url_base = ? AND id_user = ? LIMIT 1");
+			preparedStatementSelect.setString(1, urlBase);
+			preparedStatementSelect.setInt(2, idUser);
+			ResultSet result = preparedStatementSelect.executeQuery();
+			result.last();
+			if (result.getRow() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			logger.error("[UrlRepositoryInpl].[checkUniCode] SQLException - Erreur dans la requete");
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatementSelect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 
 
 }

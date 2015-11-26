@@ -65,10 +65,12 @@ public class CtrlUrl {
 		if (!urlServiceInpl.urlIsValid(url.getUrlBase())) {
 			return "{\"objetResult\": \"message\",\"message\":  \"L'url n'est pas valide.\",\"codeError\": 1}";
 		}
+		if(urlServiceInpl.checkUrlBase(url.getUrlBase(),(int) request.getSession().getAttribute("idUser"))){
+			return "{\"objetResult\": \"message\",\"message\":  \"L'url longue est déja présente.\",\"codeError\": 1}";
+		}
 
 		urlServiceInpl.createUniKey(url);
-		url.setUrlShort("http://" + request.getHeader("host") + "/r/"
-				+ url.getUniKey());
+		url.setUrlShort("http://" + request.getHeader("host") + "/r/" + url.getUniKey());
 		url.setIdUser((int) request.getSession().getAttribute("idUser"));
 		urlServiceInpl.addUrl(url);
 

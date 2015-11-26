@@ -75,4 +75,9 @@ public class UrlServiceInpl implements UrlService {
 		return listUrl;
 	}
 
+	@Override
+	public boolean checkUrlBase(String urlBase,int idUser) {
+		return URSI.checkUrlBase(urlBase,idUser);
+	}
+
 }

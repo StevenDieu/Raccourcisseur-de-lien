@@ -10,4 +10,5 @@ public interface UrlRepository {
 	public List<Url> listUrlByUser(int idUser);
 	public String getUrlBase(String uniKey);
 	public void deleteUrl(List<Integer> listUrl, int idUser);
+	public boolean checkUrlBase(String urlBase,int idUser);
 }
