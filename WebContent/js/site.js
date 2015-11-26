@@ -1,8 +1,12 @@
+var waitProgres = true;
+
 function inscription() {
 	if ($(".emailIns").val() !== "" && $(".pwdIns").val() !== ""&& $(".cpwdIns").val() !== "") {
 		if($(".pwdIns").val() === $(".cpwdIns").val()){
 			if(isAdressMail($(".emailIns").val())){
 				if($(".pwdIns").val().length >= 6 && $(".pwdIns").val().length <= 254){
+		    		waitProgres = false;
+					var self = this;
 					$.ajax({
 						type : "post",
 						url : "/pages/inscription",
@@ -15,6 +19,7 @@ function inscription() {
 							} else if (t.objetResult == "message") {
 								$(".errorInscription").html(t.message);
 							}
+							self.waitProgres = true;
 						}
 					});
 				}else{
@@ -33,6 +38,8 @@ function inscription() {
 
 function connexion() {
 	if ($(".emailCo").val() !== "" && $(".pwdCo").val() !== "") {
+		waitProgres = false;
+		var self = this;
 			$.ajax({
 				type : "post",
 				url : "/pages/connexion",
@@ -44,6 +51,7 @@ function connexion() {
 					} else if (t.objetResult == "message") {
 						$(".errorConnexion").html(t.message);
 					}
+					self.waitProgres = true;
 				}
 			});
 	}else{
@@ -63,6 +71,8 @@ function isAdressMail(email){
 
 function addUrl(){
 	if($("#urlBase").val() != ""){
+		waitProgres = false;
+		var self = this;
 		$.ajax({
 			type : "post",
 			url : "/pages/ajouterUrl",
@@ -81,15 +91,16 @@ function addUrl(){
 						$("#urlBase").val("");
 					}
 				}
+				self.waitProgres = true;
 			}
 		});
 	}
 }
 
-//checkboxUrl
-
 function deleteUrl(){
 	if($(".checkboxUrl").is(":checked")){
+		waitProgres = false;
+		var self = this;
 		var arrayCheckboxChecked = [];
 		$(".checkboxUrl").each(function( index ) {
 			  if($( this ).is(":checked")){
@@ -115,6 +126,7 @@ function deleteUrl(){
 						setAllCheckAfterAllDelete();
 					}
 				}
+				self.waitProgres = true;
 			}
 		});
 	}
@@ -147,23 +159,31 @@ function setCheckboxAllIfAllCheboxIsChek(){
 $(document).ready(function() {
     $('.inscription').on('submit', function(e) {
     	e.preventDefault();
-		inscription();
+    	if(waitProgres){
+    		inscription();
+    	}
 	});
     $('.connexion').on('submit', function(e) {
     	e.preventDefault();
-		connexion();
+    	if(waitProgres){
+    		connexion();
+    	}
 	});
     $('.addUrl').on('submit', function(e) {
     	e.preventDefault();
-		addUrl();
+    	if(waitProgres){
+    		addUrl();
+    	}
 	});
     $(".deleteUrl").on("click", function(){
-    	deleteUrl();
+    	if(waitProgres){
+    		deleteUrl();
+    	}
     })
     $(".allCheck").on("click", function(){
-    	allCheck();
+        allCheck();
     })
     $(".checkboxUrl").on("click", function(){
-    	setCheckboxAllIfAllCheboxIsChek();
+        setCheckboxAllIfAllCheboxIsChek();
     })
 });
