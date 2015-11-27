@@ -1,0 +1,40 @@
+.bloc{
+	display: inline-block;
+	text-align: right;
+	vertical-align: top;
+	width: 34%;
+}
+h3{
+	text-align: center;
+}
+body{
+	background: #eee;
+	text-align: center;
+}
+form{
+	margin-right: 12%;
+}
+.les-input{
+	background: #eee;
+    border: 1px solid #2bbcff;
+    border-radius: 5px;
+    margin-left: 3%;
+    padding: 0.25em;
+    width: 51%;
+}
+.bouton{
+	padding: 0.5em 1em;
+    background: #9ad9f6;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.deconnection{
+	color: #2bbcff;
+}
+.mesP{
+	font-size: 17px;
+}
+.tableUrl, .table-hover{
+	border: 1px solid #2bbcff;
+	margin: 1em auto;
+}

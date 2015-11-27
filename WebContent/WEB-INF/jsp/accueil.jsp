@@ -8,11 +8,10 @@
 <jsp:include page="templates/head.jsp" />
 
 <form:form modelAttribute="url" name="addUrl" class="addUrl">
-	Coller votre longue url ici : <br />
-	<br />
+	<p class="mesP" style="margin:1em 0 0">Url à raccourcir : </p>
 
-	<form:input path="urlBase" />
-	<form:button type="submit" name="Raccourcir">Raccourcir</form:button>
+	<form:input path="urlBase" class="les-input" style="width:30%" />
+	<form:button type="submit" name="Raccourcir" class="bouton">Raccourcir</form:button>
 	<br />
 	<span class="messsageUrlAjax"></span>
 </form:form>
@@ -21,8 +20,8 @@
 	<thead>
 		<tr>
 			<th class="text-left"><input type="checkbox" class="allCheck" value="${url.id}"></th>
-			<th class="text-left">URL longue</th>
-			<th class="text-left">URL courte</th>
+			<th class="text-left" style="width:68%">URL longue</th>
+			<th class="text-left" style="width:30%">URL courte</th>
 		</tr>
 	</thead>
 	<tbody class="table-hover">
@@ -34,7 +33,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<input type="button" class="deleteUrl" value="Supprimer"/><br/><br/>
-<a href="deconnexion">Se deconnecter</a>
+<input type="button" class="deleteUrl bouton" value="Supprimer"/><br/><br/>
+<a href="deconnexion" class="deconnection">Se deconnecter</a>
 
 <jsp:include page="templates/footer.jsp" />
