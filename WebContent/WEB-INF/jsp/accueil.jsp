@@ -28,8 +28,8 @@
 	<c:forEach var="url" items="${listeUrl}">
 		<tr class="${url.id}">
 			<td><input type="checkbox"  class="checkboxUrl" value="${url.id}"></td>
-			<td><c:out value="${url.urlBase}"/></td>
-			<td><a href="${url.urlShort}"><c:out value="${url.urlShort}"/></a></td>
+			<td class="interne"><c:out value="${url.urlBase}"/></td>
+			<td class="interne"><a href="${url.urlShort}"><c:out value="${url.urlShort}"/></a></td>
 		</tr>
 	</c:forEach>
 </table>

@@ -4,7 +4,7 @@
 		<h2>
 			Bienvenue sur short url
 		</h2>
-	<div class="bloc">
+	<div class="bloc" style="padding-left:2%; margin-right:3%;">
 		<h3>
 		Inscription
 		</h3>

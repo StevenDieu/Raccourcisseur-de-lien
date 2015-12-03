@@ -1,5 +1,8 @@
 .bloc{
+	background: #eee;
+	border-radius: 5px;
 	display: inline-block;
+	height: 67%;
 	text-align: right;
 	vertical-align: top;
 	width: 34%;
@@ -8,7 +11,6 @@ h3{
 	text-align: center;
 }
 body{
-	background: #eee;
 	text-align: center;
 }
 form{
@@ -16,7 +18,7 @@ form{
 }
 .les-input{
 	background: #eee;
-    border: 1px solid #2bbcff;
+    border: 1px solid #ef6468;
     border-radius: 5px;
     margin-left: 3%;
     padding: 0.25em;
@@ -24,17 +26,20 @@ form{
 }
 .bouton{
 	padding: 0.5em 1em;
-    background: #9ad9f6;
+    background: #ef6468;
     border-radius: 5px;
     font-size: 14px;
 }
 .deconnection{
-	color: #2bbcff;
+	color: #ef6468;
 }
 .mesP{
 	font-size: 17px;
 }
 .tableUrl, .table-hover{
-	border: 1px solid #2bbcff;
+	border: 1px solid #eee;
 	margin: 1em auto;
+}
+.interne{
+	padding: 0.5%;
 }
