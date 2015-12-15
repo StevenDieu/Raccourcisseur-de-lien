@@ -84,7 +84,7 @@ function addUrl(){
 				} else if (t.objetResult == "message") {
 					$(".messsageUrlAjax").html(t.message);
 					if(t.codeError === 0){
-						$(".tableUrl").append('<tr class="'+t.url.id+'"><td><input type="checkbox"  class="checkboxUrl checkboxUrl'+t.url.id+'" value="' + t.url.id + '"></td><td>' + $("#urlBase").val() + '</td><td><a href="'+ t.url.urlShort + '">' + t.url.urlShort + '</td></tr>');
+						$(".tableUrl").append('<tr class="'+t.url.id+'"><td class="interne"><input type="checkbox"  class="checkboxUrl checkboxUrl'+t.url.id+'" value="' + t.url.id + '"></td><td class="interne">' + $("#urlBase").val() + '</td><td class="interne"><a href="'+ t.url.urlShort + '" class="lien">' + t.url.urlShort + '</td></tr>');
 					    $(".checkboxUrl" + t.url.id).on("click", function(){
 					    	setCheckboxAllIfAllCheboxIsChek();
 					    });
