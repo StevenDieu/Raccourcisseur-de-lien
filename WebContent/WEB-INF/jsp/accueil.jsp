@@ -19,7 +19,7 @@
 <table border="1px" class="tableUrl">
 	<thead>
 		<tr class="header-tab">
-			<th class="text-left interne allCheck"><input type="checkbox" value="${url.id}"></th>
+			<th class="text-left interne"><input type="checkbox" class="allCheck" value="${url.id}"></th>
 			<th class="text-left interne" style="width:68%">URL longue</th>
 			<th class="text-left,interne" style="width:30%">URL courte</th>
 		</tr>

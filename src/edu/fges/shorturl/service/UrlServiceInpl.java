@@ -31,6 +31,8 @@ public class UrlServiceInpl implements UrlService {
 		} catch (IOException e) {
 			// return false; // Si on veut tester si la page est une 404
 			return true;
+		} catch (Exception e){
+			return false;
 		}
 		return true;
 	}
