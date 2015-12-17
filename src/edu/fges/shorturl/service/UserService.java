@@ -10,5 +10,4 @@ public interface UserService {
 	public boolean checkUserEmail(String email);
 	public boolean checkUserEmailPwd(User user);
 	public User getUser(int id);
-	public void removeUser(int id);
 }

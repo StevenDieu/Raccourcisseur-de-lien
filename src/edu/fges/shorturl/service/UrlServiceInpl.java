@@ -21,6 +21,12 @@ public class UrlServiceInpl implements UrlService {
 	@Autowired
 	private UrlRepositoryInpl URSI;
 
+	/**
+	 * Check if the URL is Valid
+	 * 
+	 * @param urlBase
+	 * @return
+	 */
 	public boolean urlIsValid(String urlBase) {
 		try {
 			URL url = new URL(urlBase);
@@ -31,55 +37,92 @@ public class UrlServiceInpl implements UrlService {
 		} catch (IOException e) {
 			// return false; // Si on veut tester si la page est une 404
 			return true;
-		} catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Create a uni key random
+	 * 
+	 * @param url
+	 */
 	public void createUniKey(Url url) {
 		boolean flagUniKey = true;
-		while(flagUniKey){
+		while (flagUniKey) {
 			url.setUniKey(UUID.randomUUID().toString().substring(0, 4));
-			flagUniKey = URSI.checkUniCode(url.getUniKey());	
+			flagUniKey = URSI.checkUniCode(url.getUniKey());
 		}
 	}
 
-	@Override
+	/**
+	 * add url
+	 * 
+	 * @param url
+	 */
 	public void addUrl(Url url) {
 		URSI.addUrl(url);
 	}
-	
-	public List<Url> listUrlByUser(int idUser){
+
+	/**
+	 * list all url by user
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	public List<Url> listUrlByUser(int idUser) {
 		return URSI.listUrlByUser(idUser);
 	}
 
-	@Override
+	/**
+	 * Get all url
+	 * 
+	 * @param uniKey
+	 * @return
+	 */
 	public String getUrlBase(String uniKey) {
 		return URSI.getUrlBase(uniKey);
 	}
 
-	@Override
+	/**
+	 * Delete Url
+	 * 
+	 * @param listUrl
+	 * @param idUser
+	 */
 	public void deleteUrl(List<Integer> listUrl, int idUser) {
 		URSI.deleteUrl(listUrl, idUser);
 	}
-	
-	public List<Integer> convertStringInListInteger(String stringListUrl){
+
+	/**
+	 * Convert String List in integer List
+	 * 
+	 * @param stringListUrl
+	 * @return
+	 */
+	public List<Integer> convertStringInListInteger(String stringListUrl) {
 		List<Integer> listUrl = new ArrayList<Integer>();
-		try{
+		try {
 			List<String> listStringUrl = Arrays.asList(stringListUrl.split("\\s*,\\s*"));
-			for(String stringUrl : listStringUrl) {
+			for (String stringUrl : listStringUrl) {
 				listUrl.add(Integer.valueOf(stringUrl));
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			return null;
 		}
 		return listUrl;
 	}
 
-	@Override
-	public boolean checkUrlBase(String urlBase,int idUser) {
-		return URSI.checkUrlBase(urlBase,idUser);
+	/**
+	 * check the base of url
+	 * 
+	 * @param urlBase
+	 * @param idUser
+	 * @return
+	 */
+	public boolean checkUrlBase(String urlBase, int idUser) {
+		return URSI.checkUrlBase(urlBase, idUser);
 	}
 
 }

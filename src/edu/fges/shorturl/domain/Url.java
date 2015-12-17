@@ -16,7 +16,7 @@ public class Url implements Serializable {
 	private String urlShort;
 	private String uniKey;
 	private int idUser;
-	
+
 	public Url() {
 		super();
 	}

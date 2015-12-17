@@ -19,20 +19,30 @@ public class CtrlUser {
 
 	@Autowired
 	private UserServiceInpl userServiceInpl;
-	
-	@RequestMapping(value = "/r/*")
-	public String redirection(@ModelAttribute User user,HttpServletRequest request) {
-		return "accueil";
-	}
-	
+
+	/**
+	 * The home page for sign up or sign in
+	 * 
+	 * @param user
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/index")
-	public String index(@ModelAttribute User user,HttpServletRequest request) {
+	public String index(@ModelAttribute User user, HttpServletRequest request) {
 		if (request.getSession().getAttribute("boolConnexion") != null) {
 			return "redirect:/pages/accueil";
 		}
 		return "index";
 	}
 
+	/**
+	 * Controller ajax for register in thewebsite
+	 * 
+	 * @param user
+	 * @param results
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/inscription", method = RequestMethod.POST)
 	@ResponseBody
 	public String signUp(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {
@@ -68,6 +78,14 @@ public class CtrlUser {
 		return "{\"objetResult\": \"message\",\"message\":  \"Une erreure c'est produite, vueillez recommencer ou contater un administrateur.\",\"codeError\": 3}";
 	}
 
+	/**
+	 * Controler ajax for connexion
+	 * 
+	 * @param user
+	 * @param results
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/connexion", method = RequestMethod.POST)
 	@ResponseBody
 	public String signIn(@Valid @ModelAttribute User user, BindingResult results, HttpServletRequest request) {

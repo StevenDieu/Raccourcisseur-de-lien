@@ -23,7 +23,12 @@ public class UrlRepositoryInpl implements UrlRepository {
 	@Autowired
 	private DataSource dataSource;
 
-	@Override
+	/**
+	 * Check the if the code is unique
+	 * 
+	 * @param uniCode
+	 * @return
+	 */
 	public boolean checkUniCode(String uniCode) {
 		PreparedStatement preparedStatement = null;
 
@@ -49,7 +54,11 @@ public class UrlRepositoryInpl implements UrlRepository {
 		return false;
 	}
 
-	@Override
+	/**
+	 * Add url in the bdd
+	 * 
+	 * @param url
+	 */
 	public void addUrl(Url url) {
 		PreparedStatement preparedStatementInsert = null;
 
@@ -80,13 +89,19 @@ public class UrlRepositoryInpl implements UrlRepository {
 
 	}
 
-	@Override
+	/**
+	 * List all url by user
+	 * 
+	 * @param idUser
+	 * @return
+	 */
 	public List<Url> listUrlByUser(int idUser) {
 
 		List<Url> listUrl = new LinkedList<Url>();
 		PreparedStatement preparedStatementSelect = null;
 		try {
-			preparedStatementSelect = dataSource.getConnection().prepareStatement("SELECT * FROM url WHERE id_user = ?");
+			preparedStatementSelect = dataSource.getConnection()
+					.prepareStatement("SELECT * FROM url WHERE id_user = ?");
 			preparedStatementSelect.setInt(1, idUser);
 			ResultSet result = preparedStatementSelect.executeQuery();
 			while (result.next()) {
@@ -105,11 +120,18 @@ public class UrlRepositoryInpl implements UrlRepository {
 
 		return listUrl;
 	}
-	
+
+	/**
+	 * Get url base for redirection
+	 * 
+	 * @param uniKey
+	 * @return
+	 */
 	public String getUrlBase(String uniKey) {
 		PreparedStatement preparedStatementSelect = null;
 		try {
-			preparedStatementSelect = dataSource.getConnection().prepareStatement("SELECT * FROM url WHERE uni_key = ?");
+			preparedStatementSelect = dataSource.getConnection()
+					.prepareStatement("SELECT * FROM url WHERE uni_key = ?");
 			preparedStatementSelect.setString(1, uniKey);
 			ResultSet result = preparedStatementSelect.executeQuery();
 			while (result.next()) {
@@ -129,6 +151,13 @@ public class UrlRepositoryInpl implements UrlRepository {
 		return null;
 	}
 
+	/**
+	 * Create url for add in bdd
+	 * 
+	 * @param result
+	 * @return
+	 * @throws SQLException
+	 */
 	private Url createUrlResult(ResultSet result) throws SQLException {
 		int id = result.getInt("id");
 		String urlBase = result.getString("url_base");
@@ -138,15 +167,22 @@ public class UrlRepositoryInpl implements UrlRepository {
 		return new Url(id, urlBase, urlShort, uniKey, idUser);
 	}
 
-	@Override
+	/**
+	 * Delete url in BDD
+	 * 
+	 * @param listUrl
+	 * @param idUser
+	 * @return
+	 */
 	public void deleteUrl(List<Integer> listUrl, int idUser) {
-		for(int idUrl : listUrl){
+		for (int idUrl : listUrl) {
 			PreparedStatement preparedStatementDelete = null;
 			try {
-					preparedStatementDelete = dataSource.getConnection().prepareStatement("DELETE FROM url WHERE id = ? and id_user = ?");
-					preparedStatementDelete.setInt(1, idUrl);
-					preparedStatementDelete.setInt(2, idUser);
-					preparedStatementDelete.execute();
+				preparedStatementDelete = dataSource.getConnection()
+						.prepareStatement("DELETE FROM url WHERE id = ? and id_user = ?");
+				preparedStatementDelete.setInt(1, idUrl);
+				preparedStatementDelete.setInt(2, idUser);
+				preparedStatementDelete.execute();
 			} catch (SQLException e) {
 				logger.error("[UrlRepositoryInpl].[deleteUrl] SQLException - Erreur dans la requete");
 				e.printStackTrace();
@@ -161,8 +197,14 @@ public class UrlRepositoryInpl implements UrlRepository {
 
 	}
 
-	@Override
-	public boolean checkUrlBase(String urlBase,int idUser) {
+	/**
+	 * Check url in BDD
+	 * 
+	 * @param urlBase
+	 * @param idUser
+	 * @return
+	 */
+	public boolean checkUrlBase(String urlBase, int idUser) {
 		PreparedStatement preparedStatementSelect = null;
 
 		try {
@@ -187,7 +229,5 @@ public class UrlRepositoryInpl implements UrlRepository {
 		}
 		return false;
 	}
-
-
 
 }

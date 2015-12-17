@@ -7,13 +7,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Bdd {
-	
+
 	private static final String NAME_BDD = "shorturl";
 	private static final String USER_BDD = "sa";
 	private static final String PASSWORD_BDD = "";
-	private static java.sql.Connection  CONN = null;
+	private static java.sql.Connection CONN = null;
 	private static final Logger logger = LogManager.getLogger(Bdd.class);
 
+	/**
+	 * connection for the bdd
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	public static java.sql.Connection connection() throws SQLException {
 		try {
 			Class.forName("org.h2.Driver");
@@ -24,7 +30,10 @@ public class Bdd {
 		}
 		return CONN;
 	}
-	
+
+	/**
+	 * disconnection of bdd
+	 */
 	public static void disconnection() {
 		try {
 			CONN.close();
@@ -33,11 +42,15 @@ public class Bdd {
 			e.printStackTrace();
 		}
 	}
-	
-	public static java.sql.Connection getConnexion() throws SQLException {
+
+	/**
+	 * Get connection of bdd
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static java.sql.Connection getConnection() throws SQLException {
 		return CONN;
 	}
-	
-
 
 }

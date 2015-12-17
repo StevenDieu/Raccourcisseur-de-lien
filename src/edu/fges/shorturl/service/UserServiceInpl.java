@@ -17,31 +17,51 @@ public class UserServiceInpl implements UserService {
 	@Autowired
 	private UserRepositoryInpl URSI;
 
-	@Override
+	/**
+	 * Create user
+	 * 
+	 * @param user
+	 */
 	public void createUser(User user) {
 		URSI.saveUser(user);
 	}
 
-	@Override
+	/**
+	 * Get user
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public User getUser(int id) {
 		return null;
 	}
 
-	@Override
-	public void removeUser(int id) {
-
-	}
-
-	@Override
+	/**
+	 * Check emil is exist
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public boolean checkUserEmail(String email) {
 		return URSI.checkUserEmail(email);
 	}
 
-	@Override
+	/**
+	 * Check emil with pdw exist
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public boolean checkUserEmailPwd(User user) {
 		return URSI.checkUserEmailPwd(user);
 	}
 
+	/**
+	 * Get ip address of user
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public String getIpAdresse(HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
 		if (ipAddress == null) {
@@ -50,6 +70,12 @@ public class UserServiceInpl implements UserService {
 		return ipAddress;
 	}
 
+	/**
+	 * Check if the mail is compatible
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public boolean isEmailAdress(String email) {
 		Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
 		Matcher m = p.matcher(email.toUpperCase());
